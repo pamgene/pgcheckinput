@@ -1,8 +1,8 @@
 Package: pgCheckInput
 Type: Package
 Title: Check input from Bionavigator into R
-Version: 1.0
-Date: 2015-04-14
+Version: 3.0
+Date: 2015-11-25
 Author: Rik de Wijn
 Maintainer: Rik de Wijn <rdwijn@pamgene.com>
 Description: Package with functionality for checking common input errors from R to Bionavigator. Common error ID and PamCloud links.
