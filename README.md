@@ -1,7 +1,7 @@
-#pgMulticore
+#pgCheckInput
 
 ## Instal
 
 ```
-devtools::install_bitbucket("bnoperator/pgmulticore")
+devtools::install_bitbucket("bnoperator/pgcheckinput")
 ```
