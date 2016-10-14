@@ -14,5 +14,5 @@ if (getRversion() < "3.2"){
 # Publish a package on pamagene R repository
 
 ```
-bntools::deployGitPackage('https://bitbucket.org/bnoperator/pgcheckinput.git', '3.2')
+bntools::deployGitPackage('https://bitbucket.org/bnoperator/pgcheckinput.git', '3.3')
 ```
