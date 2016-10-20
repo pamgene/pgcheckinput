@@ -1,8 +1,7 @@
 # Constructor function for the class
-library(Biobase)
-library(reshape)
-library(plyr)
-
+#' @import reshape
+#' @import plyr
+#' @export
 pgError <- function(title, msg = "", url = "", msgFun = NULL)  {
   # Do something here with x, args and put in something
   object <- list(title = title, url = url, msgFun = msgFun)
@@ -10,10 +9,12 @@ pgError <- function(title, msg = "", url = "", msgFun = NULL)  {
   return (object)
 }
 
+#' @export
 check = function(object, data, ...){
   UseMethod("check", object)
 }
 
+#' @export
 check.pgError = function(object, x, openUrlOnError = "FALSE", ...){
   msg = object$msgFun(x, ...)
   if(!is.null(msg)){
@@ -24,14 +25,18 @@ check.pgError = function(object, x, openUrlOnError = "FALSE", ...){
   }
 }
 
+#' @export
 openURL= function(object){
   UseMethod("openURL", object)
 }
+
+#' @export
 openURL.pgError = function(object){
   browseURL(object$url)
 }
 
 #defined checks
+#' @export
 EmptyCells   = pgError(title = "Missing values are not allowed",
                        url = "https://pamcloud.pamgene.com/wiki/Wiki.jsp?page=Missing%20values%20are%20not%20allowed",
                        msgFun = function(aCube){
@@ -49,6 +54,7 @@ EmptyCells   = pgError(title = "Missing values are not allowed",
 
                        })
 
+#' @export
 MultipleValuesPerCell = pgError(title = "Multiple values per Data Cell are not allowed",
                                 msgFun = function(aCube){
                                   msg = "make sure that every Data Cell in the Cross-tab Window contains not more than a single value."
@@ -62,6 +68,7 @@ MultipleValuesPerCell = pgError(title = "Multiple values per Data Cell are not a
                                 url = "https://pamcloud.pamgene.com/wiki/Wiki.jsp?page=Multiple%20values%20per%20Data%20Cell%20are%20not%20allowed"
                           )
 
+#' @export
 RowsWithConstantValue = pgError(title = "Rows with identical values in all the cells are not allowed",
                                 msgFun = function(aCube){
                                   msg = "Please make sure that the input data does not contain rows with zero standard deviation."
@@ -73,7 +80,7 @@ RowsWithConstantValue = pgError(title = "Rows with identical values in all the c
                                     }
                                   }, url = "https://pamcloud.pamgene.com/wiki/Wiki.jsp?page=Rows%20with%20identical%20values%20in%20all%20the%20cells%20are%20not%20allowed"
                                 )
-
+#' @export
 ExactNumberOfFactors = pgError(title = "Incorrect number of factors",
                                   msgFun = function(aCube, groupingType, nFactors = 1, altGroupingName = NULL){
                                     metaData = varMetadata(aCube)
@@ -91,6 +98,7 @@ ExactNumberOfFactors = pgError(title = "Incorrect number of factors",
                                     return(msg)
                                    }, url = "https://pamcloud.pamgene.com/wiki/Wiki.jsp?page=Incorrect%20Number%20of%20Factors")
 
+#' @export
 FactorPresent = pgError(title = "Factor not present",
                         msgFun = function(aCube, groupingType, altGroupingName = NULL){
                           metaData = varMetadata(aCube)
@@ -109,7 +117,7 @@ FactorPresent = pgError(title = "Factor not present",
                         },
                         url = "https://pamcloud.pamgene.com/wiki/Wiki.jsp?page=Factor%20Not%20Present"
                         )
-
+#' @export
 FactorIsNumeric = pgError(title = "Factor must be numeric",
                      msgFun = function(aCube, factorName){
                        metaData = varMetadata(aCube)
@@ -124,6 +132,7 @@ FactorIsNumeric = pgError(title = "Factor must be numeric",
                        url = "https://pamcloud.pamgene.com/wiki/Wiki.jsp?page=Factor%20must%20be%20numeric"
                      )
 
+#' @export
 ExactNumberOfGroups = pgError(title = "Incorrect number of groups",
                                   msgFun = function(aCube, factorName, nLevels){
                                   fac = as.factor(aCube[[factorName]])
@@ -135,7 +144,7 @@ ExactNumberOfGroups = pgError(title = "Incorrect number of groups",
                                   return(msg)
                                 },url = "https://pamcloud.pamgene.com/wiki/Wiki.jsp?page=Incorrect%20number%20of%20groups"
                               )
-
+#' @export
 MultipleGroupsPresent = pgError(title = "Factor must contain multiple groups",
                                 msgFun = function(aCube, factorName){
                                   fac = as.factor(aCube[[factorName]])
@@ -148,7 +157,7 @@ MultipleGroupsPresent = pgError(title = "Factor must contain multiple groups",
                                 }, url = "https://pamcloud.pamgene.com/wiki/Wiki.jsp?page=Factor%20must%20contain%20multiple%20groups"
 
                                 )
-
+#' @export
 NonUniqueDataMapping = pgError(title = "Input data is not unique",
                                msgFun = function(aCube){
                                  sID = pData(aCube)$sids
@@ -161,7 +170,7 @@ NonUniqueDataMapping = pgError(title = "Input data is not unique",
                                },
                                  url = "https://pamcloud.pamgene.com/wiki/Wiki.jsp?page=Input%20data%20is%20not%20unique"
                                )
-
+#' @export
 PamCloudInstalled = pgError(title = "PamCloud package not installed",
                             msgFun = return("The required R-package PamCloud has not been (correctly) installed. Please check the PamCloud R-package page on the PamWiki for more information"),
                             url = "https://pamcloud.pamgene.com/wiki/Wiki.jsp?page=PamCloud%20package%20not%20installed"
